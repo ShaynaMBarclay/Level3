@@ -1,19 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Game() {
+export default function AnniversaryGame() {
+  const navigate = useNavigate();
+  const gameRef = useRef(null);
   const [catPos, setCatPos] = useState({ x: 50, y: 50 });
   const [activeKeys, setActiveKeys] = useState({});
   const [currentObstacle, setCurrentObstacle] = useState(0);
   const [showModal, setShowModal] = useState(null);
-  const [endGame, setEndGame] = useState(false);
+
+  const gameWidth = 600;
+  const gameHeight = 700;
 
   const objects = [
     { x: 100, y: 100, text: "Memory 1", img: "pic1.jpg" },
-    { x: 250, y: 200, text: "Memory 2", img: "pic2.jpg" },
-    { x: 400, y: 120, text: "Memory 3", img: "pic3.jpg" },
+    { x: 250, y: 300, text: "Memory 2", img: "pic2.jpg" },
+    { x: 400, y: 500, text: "Memory 3", img: "pic3.jpg" },
   ];
 
-  const finishLine = { x: 450, y: 300 };
+  const finishLine = { x: 500, y: 650 };
 
   useEffect(() => {
     const down = (e) =>
@@ -40,9 +45,11 @@ export default function Game() {
         if (activeKeys["a"]) newPos.x -= speed;
         if (activeKeys["d"]) newPos.x += speed;
 
-        newPos.x = Math.max(0, Math.min(500 - 40, newPos.x));
-        newPos.y = Math.max(0, Math.min(400 - 40, newPos.y));
+        // Keep inside game box
+        newPos.x = Math.max(0, Math.min(gameWidth - 40, newPos.x));
+        newPos.y = Math.max(0, Math.min(gameHeight - 40, newPos.y));
 
+        // Current obstacle collision
         if (currentObstacle < objects.length) {
           const obj = objects[currentObstacle];
           if (
@@ -52,11 +59,12 @@ export default function Game() {
             setShowModal(obj);
           }
         } else {
+          // Finish line collision
           if (
             Math.abs(newPos.x - finishLine.x) < 40 &&
             Math.abs(newPos.y - finishLine.y) < 40
           ) {
-            setEndGame(true);
+            navigate("/end");
           }
         }
 
@@ -74,55 +82,38 @@ export default function Game() {
 
   return (
     <div className="screen">
-      <div className="game-area">
-        {!endGame ? (
-          <>
-            <div
-              className="cat"
-              style={{ top: catPos.y, left: catPos.x }}
-            >
-              🐱
-            </div>
+      <div className="game-area" ref={gameRef} style={{ width: gameWidth, height: gameHeight }}>
+        <div className="cat" style={{ top: catPos.y, left: catPos.x }}>
+          🐱
+        </div>
 
-            {currentObstacle < objects.length && (
-              <div
-                className="object"
-                style={{
-                  top: objects[currentObstacle].y,
-                  left: objects[currentObstacle].x,
-                }}
-              >
-                🌟
-              </div>
-            )}
+        {currentObstacle < objects.length && (
+          <div
+            className="object"
+            style={{
+              top: objects[currentObstacle].y,
+              left: objects[currentObstacle].x,
+            }}
+          >
+            🌟
+          </div>
+        )}
 
-            {currentObstacle >= objects.length && (
-              <div
-                className="finish-line"
-                style={{ top: finishLine.y, left: finishLine.x }}
-              >
-                🏁
-              </div>
-            )}
+        {currentObstacle >= objects.length && (
+          <div
+            className="finish-line"
+            style={{ top: finishLine.y, left: finishLine.x }}
+          >
+            🏁
+          </div>
+        )}
 
-            {showModal && (
-              <div className="modal">
-                <div className="modal-content">
-                  <img src={showModal.img} alt="memory" />
-                  <p>{showModal.text}</p>
-                  <button onClick={handleCloseModal}>Close</button>
-                </div>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="end-screen">
-            <h1>🎉 Level 3 Complete 🎉</h1>
-            <p>Forever unlocked ❤️</p>
-            <div className="collage">
-              <img src="yourPic1.jpg" alt="memory" />
-              <img src="yourPic2.jpg" alt="memory" />
-              <img src="yourPic3.jpg" alt="memory" />
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <img src={showModal.img} alt="memory" />
+              <p>{showModal.text}</p>
+              <button onClick={handleCloseModal}>Close</button>
             </div>
           </div>
         )}

@@ -4,31 +4,34 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: black;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
   color: #ff69b4;
   text-align: center;
-  font-family: "Press Start 2P", cursive; /* try a retro font */
+  font-family: "Press Start 2P", cursive;
 }
 
 .welcome-container h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 8px #ff1493, 0 0 12px #ff69b4;
 }
 
 .welcome-container p {
-  margin: 0.5rem 0;
+  margin: 0.6rem 0;
+  font-size: 1rem;
 }
 
 .start-btn {
   margin-top: 2rem;
-  padding: 1rem 2rem;
+  padding: 1rem 2.5rem;
   background: #ff69b4;
   color: white;
-  border: none;
-  border-radius: 8px;
+  border: 2px solid #ff1493;
+  border-radius: 10px;
   font-size: 1.2rem;
+  font-family: "Press Start 2P", cursive;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .start-btn:hover {
