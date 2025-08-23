@@ -1,6 +1,7 @@
 .end-screen {
   width: 100vw;
-  height: 100vh;
+  height: auto; /* let it grow if content is taller */
+  max-height: 100vh;
   background: #111;
   display: flex;
   flex-direction: column;
@@ -9,9 +10,15 @@
   color: #0ff;
   font-family: 'Press Start 2P', cursive;
   text-align: center;
-  overflow-y: auto; /* in case content is taller than screen */
+  overflow-y: auto; /* scroll if needed */
   padding: 20px;
+  box-sizing: border-box;
 }
+
+.collage img {
+  width: min(280px, 90vw); /* keep images big but fit small screens */
+}
+
 
 .end-screen h1 {
   font-size: 2.5rem;

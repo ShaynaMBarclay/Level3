@@ -21,8 +21,8 @@ export default function AnniversaryGame() {
   const [currentObstacle, setCurrentObstacle] = useState(0);
   const [showModal, setShowModal] = useState(null);
 
-  const gameWidth = 600;
-  const gameHeight = 700;
+  const gameWidth = 500; // smaller max width
+  const gameHeight = 600; // smaller max height
 
   const objects = [
     {
@@ -32,12 +32,25 @@ export default function AnniversaryGame() {
       imgs: [wow1, wow2],
       icon: "🎮",
     },
-    { x: 250, y: 300, text: "Meeting in Italy for the first time. We had an instant connection. Remember when we got yelled at by an old Italian lady for making out in the alley? Oops.", imgs: [italy1, italy2, italy3, italy4, italy5], icon: "🍕" }, 
-    { x: 400, y: 500, text: "Moving in together, we got even closer and started to build our life in France. We laughed and cried together and made so many memories. We're married now. Hisband and Wufe.", imgs: [france1, france2, france3, france4, france5], icon: "🥖" }, 
+    {
+      x: 250,
+      y: 300,
+      text: "Meeting in Italy for the first time. We had an instant connection. Remember when we got yelled at by an old Italian lady for making out in the alley? Oops.",
+      imgs: [italy1, italy2, italy3, italy4, italy5],
+      icon: "🍕",
+    },
+    {
+      x: 400,
+      y: 500,
+      text: "Moving in together, we got even closer and started to build our life in France. We laughed and cried together and made so many memories. We're married now. Hisband and Wufe.",
+      imgs: [france1, france2, france3, france4, france5],
+      icon: "🥖",
+    },
   ];
 
-  const finishLine = { x: 500, y: 650 };
+  const finishLine = { x: 450, y: 550 }; // scaled down for smaller game area
 
+  // Key controls
   useEffect(() => {
     const down = (e) =>
       setActiveKeys((prev) => ({ ...prev, [e.key.toLowerCase()]: true }));
@@ -53,6 +66,7 @@ export default function AnniversaryGame() {
     };
   }, []);
 
+  // Cat movement & collision
   useEffect(() => {
     const speed = 4;
     const interval = setInterval(() => {
