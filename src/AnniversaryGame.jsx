@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import wow1 from "./assets/wow1.jpeg";
+import wow2 from "./assets/wow2.jpeg";
+
 
 export default function AnniversaryGame() {
   const navigate = useNavigate();
@@ -13,9 +16,14 @@ export default function AnniversaryGame() {
   const gameHeight = 700;
 
   const objects = [
-    { x: 100, y: 100, text: "Memory 1", img: "pic1.jpg" },
-    { x: 250, y: 300, text: "Memory 2", img: "pic2.jpg" },
-    { x: 400, y: 500, text: "Memory 3", img: "pic3.jpg" },
+    {
+      x: 100,
+      y: 100,
+      text: "Date Night in Suramar. We weren't together irl yet but we had dates that were just as meaningful in our favorite place.",
+      imgs: [wow1, wow2],
+    },
+    { x: 250, y: 300, text: "Memory 2", imgs: [] },
+    { x: 400, y: 500, text: "Memory 3", imgs: [] },
   ];
 
   const finishLine = { x: 500, y: 650 };
@@ -45,11 +53,9 @@ export default function AnniversaryGame() {
         if (activeKeys["a"]) newPos.x -= speed;
         if (activeKeys["d"]) newPos.x += speed;
 
-        // Keep inside game box
         newPos.x = Math.max(0, Math.min(gameWidth - 40, newPos.x));
         newPos.y = Math.max(0, Math.min(gameHeight - 40, newPos.y));
 
-        // Current obstacle collision
         if (currentObstacle < objects.length) {
           const obj = objects[currentObstacle];
           if (
@@ -59,7 +65,6 @@ export default function AnniversaryGame() {
             setShowModal(obj);
           }
         } else {
-          // Finish line collision
           if (
             Math.abs(newPos.x - finishLine.x) < 40 &&
             Math.abs(newPos.y - finishLine.y) < 40
@@ -82,7 +87,11 @@ export default function AnniversaryGame() {
 
   return (
     <div className="screen">
-      <div className="game-area" ref={gameRef} style={{ width: gameWidth, height: gameHeight }}>
+      <div
+        className="game-area"
+        ref={gameRef}
+        style={{ width: gameWidth, height: gameHeight }}
+      >
         <div className="cat" style={{ top: catPos.y, left: catPos.x }}>
           🐱
         </div>
@@ -111,9 +120,16 @@ export default function AnniversaryGame() {
         {showModal && (
           <div className="modal">
             <div className="modal-content">
-              <img src={showModal.img} alt="memory" />
-              <p>{showModal.text}</p>
-              <button onClick={handleCloseModal}>Close</button>
+              <h2 className="modal-title">✨ Memory ✨</h2>
+              <div className="modal-images">
+                {showModal.imgs.map((img, i) => (
+                  <img key={i} src={img} alt={`memory-${i}`} />
+                ))}
+              </div>
+              <p className="modal-text">{showModal.text}</p>
+              <button className="modal-btn" onClick={handleCloseModal}>
+                Continue ➡️
+              </button>
             </div>
           </div>
         )}

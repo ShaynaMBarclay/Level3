@@ -1,3 +1,16 @@
 @import "./AnniversaryGame.css";
 @import "./WelcomePage.css";
 @import "./EndScreen.css";
+@import "./Modal.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background: #111;
+  height: 100%;
+  font-family: 'Press Start 2P', cursive;
+  color: #0ff;
+  overflow: hidden;
+}
