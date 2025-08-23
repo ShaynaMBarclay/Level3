@@ -8,19 +8,26 @@
   color: #ff69b4;
   text-align: center;
   font-family: "Press Start 2P", cursive;
+  overflow: hidden;
+  position: relative;
 }
 
+/* Flickering neon heading */
 .welcome-container h1 {
   font-size: 2.2rem;
   margin-bottom: 1.5rem;
   text-shadow: 0 0 8px #ff1493, 0 0 12px #ff69b4;
+  animation: neonFlicker 1.5s infinite alternate;
 }
 
+/* Paragraph pop-in */
 .welcome-container p {
   margin: 0.6rem 0;
   font-size: 1rem;
+  animation: textPop 1s ease forwards;
 }
 
+/* Retro start button bounce */
 .start-btn {
   margin-top: 2rem;
   padding: 1rem 2.5rem;
@@ -31,10 +38,48 @@
   font-size: 1.2rem;
   font-family: "Press Start 2P", cursive;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  animation: buttonBounce 2s infinite;
 }
 
 .start-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
   background: #ff1493;
+  box-shadow: 0 0 15px #ff69b4, 0 0 30px #ff1493;
+}
+
+/* Star sparkle effect */
+.welcome-container::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: radial-gradient(#ff69b4 1px, transparent 1px);
+  background-size: 5px 5px;
+  animation: starMove 15s linear infinite;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 8px #ff1493, 0 0 12px #ff69b4; opacity: 1; }
+  20%, 24%, 55% { text-shadow: 0 0 2px #ff1493, 0 0 4px #ff69b4; opacity: 0.7; }
+}
+
+@keyframes buttonBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes textPop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes starMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50%, 50%); }
 }
