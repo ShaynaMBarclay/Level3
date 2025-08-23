@@ -2,7 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import wow1 from "./assets/wow1.jpeg";
 import wow2 from "./assets/wow2.jpeg";
-
+import italy1 from "./assets/italy1.jpeg";
+import italy2 from "./assets/italy2.jpeg";
+import italy3 from "./assets/italy3.jpeg";
+import italy4 from "./assets/italy4.jpeg";
+import italy5 from "./assets/italy5.jpeg";
+import france1 from "./assets/france1.jpeg";
+import france2 from "./assets/france2.jpeg";
+import france3 from "./assets/france3.jpeg";
+import france4 from "./assets/france4.jpeg";
+import france5 from "./assets/france5.jpeg";
 
 export default function AnniversaryGame() {
   const navigate = useNavigate();
@@ -21,9 +30,10 @@ export default function AnniversaryGame() {
       y: 100,
       text: "Date Night in Suramar. We weren't together irl yet but we had dates that were just as meaningful in our favorite place.",
       imgs: [wow1, wow2],
+      icon: "🎮",
     },
-    { x: 250, y: 300, text: "Memory 2", imgs: [] },
-    { x: 400, y: 500, text: "Memory 3", imgs: [] },
+    { x: 250, y: 300, text: "Meeting in Italy for the first time. We had an instant connection. Remember when we got yelled at by an old Italian lady for making out in the alley? Oops.", imgs: [italy1, italy2, italy3, italy4, italy5], icon: "🍕" }, 
+    { x: 400, y: 500, text: "Moving in together, we got even closer and started to build our life in France. We laughed and cried together and made so many memories. We're married now. Hisband and Wufe.", imgs: [france1, france2, france3, france4, france5], icon: "🥖" }, 
   ];
 
   const finishLine = { x: 500, y: 650 };
@@ -104,7 +114,7 @@ export default function AnniversaryGame() {
               left: objects[currentObstacle].x,
             }}
           >
-            🌟
+            {objects[currentObstacle].icon}
           </div>
         )}
 
