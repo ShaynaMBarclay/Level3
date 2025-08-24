@@ -20,6 +20,7 @@ export default function AnniversaryGame() {
   const [activeKeys, setActiveKeys] = useState({});
   const [currentObstacle, setCurrentObstacle] = useState(0);
   const [showModal, setShowModal] = useState(null);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   const gameWidth = 500; // smaller max width
   const gameHeight = 600; // smaller max height
@@ -50,8 +51,26 @@ export default function AnniversaryGame() {
 
   const finishLine = { x: 450, y: 550 }; // scaled down for smaller game area
 
-  // Key controls
+  // Check device width
   useEffect(() => {
+    const checkScreen = () => {
+      if (window.innerWidth < 1025) {
+        setIsDesktop(false);
+      } else {
+        setIsDesktop(true);
+      }
+    };
+
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  // Key controls (desktop only)
+  useEffect(() => {
+    if (!isDesktop) return;
+
     const down = (e) =>
       setActiveKeys((prev) => ({ ...prev, [e.key.toLowerCase()]: true }));
     const up = (e) =>
@@ -64,10 +83,12 @@ export default function AnniversaryGame() {
       window.removeEventListener("keydown", down);
       window.removeEventListener("keyup", up);
     };
-  }, []);
+  }, [isDesktop]);
 
-  // Cat movement & collision
+  // Cat movement & collision (desktop only)
   useEffect(() => {
+    if (!isDesktop) return;
+
     const speed = 4;
     const interval = setInterval(() => {
       setCatPos((prev) => {
@@ -102,13 +123,24 @@ export default function AnniversaryGame() {
     }, 20);
 
     return () => clearInterval(interval);
-  }, [activeKeys, currentObstacle]);
+  }, [activeKeys, currentObstacle, isDesktop]);
 
   const handleCloseModal = () => {
     setShowModal(null);
     setCurrentObstacle((prev) => prev + 1);
   };
 
+  // 🚫 Block mobile/tablet
+  if (!isDesktop) {
+    return (
+      <div className="mobile-block">
+        <h1>🚫 Desktop Only</h1>
+        <p>This game is only accessible on desktop devices, please switch to a computer :)</p>
+      </div>
+    );
+  }
+
+  // ✅ Desktop Game
   return (
     <div className="screen">
       <div

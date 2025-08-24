@@ -14,3 +14,27 @@ body, html {
   color: #0ff;
   overflow: hidden; 
 }
+
+.mobile-block {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  color: #0ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 2rem);
+}
+
+.mobile-block h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-shadow: 0 0 10px #0ff, 0 0 20px #00f;
+  margin-bottom: 1rem;
+}
+
+.mobile-block p {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  text-shadow: 0 0 5px #0ff, 0 0 10px #00f;
+}
