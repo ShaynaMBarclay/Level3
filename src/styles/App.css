@@ -5,6 +5,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+body {
+  cursor: url('../assets/cursor.png') 8 8, auto; 
+}
+
+
 body, html {
   margin: 0;
   padding: 0;

@@ -69,7 +69,7 @@
   border: none;
   color: #111;
   font-family: 'Press Start 2P', cursive;
-  cursor: pointer;
+  cursor: url('../assets/pointer.png') 8 8, pointer;
   border-radius: 8px;
   box-shadow: 0 0 15px #0ff, 0 0 30px #00f;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
