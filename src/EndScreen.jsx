@@ -1,9 +1,21 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import wow from "./assets/wow.jpeg";
 import italy from "./assets/italy.jpeg";
 import france from "./assets/france.jpeg";
+import victorySound from "./assets/love.mp3"; 
 
 export default function EndScreen() {
+  useEffect(() => {
+    const victoryAudio = new Audio(victorySound);
+    victoryAudio.play();
+
+    return () => {
+      victoryAudio.pause();
+      victoryAudio.currentTime = 0; 
+    };
+  }, []);
+
   return (
     <div className="end-screen">
       <h1>🎉 3 years, Complete! 🎉</h1>

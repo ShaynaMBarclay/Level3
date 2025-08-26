@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function WelcomePage() {
+function WelcomePage({ startMusic }) {
   return (
     <div className="welcome-container">
       <h1>💖 Level 3: Anniversary Edition 💖</h1>
@@ -8,7 +8,9 @@ function WelcomePage() {
       <p>Press start to begin your journey...</p>
 
       <Link to="/anniversary">
-        <button className="start-btn">▶ Start Game</button>
+        <button className="start-btn" onClick={startMusic}>
+          ▶ Start Game
+        </button>
       </Link>
     </div>
   );
